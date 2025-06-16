@@ -1,0 +1,58 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+// Function to display available currencies
+void displayCurrencies() {
+    cout << "\nAvailable Currencies:\n";
+    cout << "1. USD (US Dollar)\n";
+    cout << "2. EUR (Euro)\n";
+    cout << "3. INR (Indian Rupee)\n";
+    cout << "4. GBP (British Pound)\n";
+    cout << "5. JPY (Japanese Yen)\n";
+}
+
+// Function to get the exchange rate from source to target
+double getExchangeRate(int from, int to) {
+    // Exchange rates as of example (1 unit of source currency in target currency)
+    double rates[5][5] = {
+        {1.0, 0.85, 83.15, 0.75, 157.42},   // From USD
+        {1.18, 1.0, 97.58, 0.88, 185.23},   // From EUR
+        {0.012, 0.010, 1.0, 0.009, 1.90},   // From INR
+        {1.33, 1.14, 111.09, 1.0, 211.78},  // From GBP
+        {0.0064, 0.0054, 0.53, 0.0047, 1.0} // From JPY
+    };
+
+    return rates[from - 1][to - 1];
+}
+
+int main() {
+    int fromCurrency, toCurrency;
+    double amount;
+
+    cout << "********** Currency Converter **********\n";
+
+    displayCurrencies();
+
+    cout << "\nEnter the number for source currency: ";
+    cin >> fromCurrency;
+
+    cout << "Enter the number for target currency: ";
+    cin >> toCurrency;
+
+    if (fromCurrency < 1 || fromCurrency > 5 || toCurrency < 1 || toCurrency > 5) {
+        cout << "Invalid currency selection. Please try again.\n";
+        return 1;
+    }
+
+    cout << "Enter the amount to convert: ";
+    cin >> amount;
+
+    double rate = getExchangeRate(fromCurrency, toCurrency);
+    double convertedAmount = amount * rate;
+
+    cout << fixed << setprecision(2);
+    cout << "\nConverted Amount: " << convertedAmount << endl;
+
+    return 0;
+}
